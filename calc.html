@@ -2,98 +2,103 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>TERMINAL: BESTIARY_DATABASE</title>
+    <title>TERMINAL: IM_CALCULATOR</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="calc-page">
 
-    <header class="header">
-        <h1>ВЕЧНЫЙ ДАНЖ: ОБСЕРВАТОРИЯ</h1>
-        <p>Архив биологических и энергетических угроз</p>
-    </header>
+    <div class="terminal-frame">
+        <header class="calc-top-bar">
+            <div class="status-light"></div>
+            <span class="terminal-title">MODIFICATION TERMINAL v.1.0.4</span>
+            <a href="index.html" class="back-link">ВЕРНУТЬСЯ В ОБСЕРВАТОРИЮ [ESC]</a>
+        </header>
 
-    <main class="main-container single-column">
-        <nav class="nav-tabs">
-            <a href="index.html" class="nav-item">ЛОГИ (БАЗА)</a>
-            <a href="calc.html" class="nav-item">ТЕРМИНАЛ ИМ</a>
-            <a href="elements.html" class="nav-item">ЭЛЕМЕНТЫ</a>
-            <a href="classes.html" class="nav-item">КЛАССЫ</a>
-            <a href="bestiary.html" class="nav-item active">БЕСТИАРИЙ</a>
-        </nav>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" class="exit-btn">РАЗОРВАТЬ СОЕДИНЕНИЕ</a>
+        </div>
 
-        <section class="content">
-            <div class="protocol-header">АНАЛИЗ ВНЕШНИХ УГРОЗ</div>
-
-            <div class="search-box">
-                <input type="text" id="mobSearch" placeholder="ПОИСК ПО ТИПУ СУЩЕСТВА..." onkeyup="searchMob()">
-            </div>
-
-            <div class="bestiary-list" id="mobGrid">
-                
-                <div class="mob-card threat-mid">
-                    <div class="mob-side-info">
-                        <span class="threat-label">УГРОЗА: СРЕДНЯЯ</span>
-                        <span class="mob-id">#NM-04</span>
-                    </div>
-                    <div class="mob-main-info">
-                        <h3>НЕКРОМОРФ</h3>
-                        <p class="mob-desc">Переродившаяся плоть, управляемая эфирным паразитом. Обладает высокой регенерацией.</p>
-                        <div class="mob-stats">
-                            <span><b>Тип:</b> Биологический</span>
-                            <span><b>Среда:</b> Нижние этажи</span>
-                        </div>
-                        <div class="mob-drop">
-                            <b>ЦЕННЫЙ ЛУТ:</b> Костяной фрагмент, Эфирная эссенция.
-                        </div>
+        <div class="calc-grid">
+            <section class="calc-inputs">
+                <div class="input-block">
+                    <label>Этаж Данжа (Базовый ИМ)</label>
+                    <div class="number-input-wrapper">
+                        <input type="number" id="floor" value="1" oninput="calculate()">
+                        <span class="unit">FLR</span>
                     </div>
                 </div>
 
-                <div class="mob-card threat-high">
-                    <div class="mob-side-info">
-                        <span class="threat-label">УГРОЗА: ВЫСОКАЯ</span>
-                        <span class="mob-id">#TC-09</span>
-                    </div>
-                    <div class="mob-main-info">
-                        <h3>ТЕХНОЦИТ (ЗАРАЖЕННЫЙ)</h3>
-                        <p class="mob-desc">Слияние живых тканей и механизмов терминала. Агрессивен к любым источникам маны.</p>
-                        <div class="mob-stats">
-                            <span><b>Тип:</b> Техногенный</span>
-                            <span><b>Среда:</b> Технические сектора</span>
+                <div class="input-block">
+                    <label>Сопряжение Терминала</label>
+                    <select id="terminal" onchange="calculate()">
+                        <option value="3">ИДЕАЛЬНОЕ (x3)</option>
+                        <option value="2">УЛУЧШЕННОЕ (x2)</option>
+                        <option value="1" selected>УДОВЛЕТВОРИТЕЛЬНОЕ (x1)</option>
+                        <option value="0.75">МИНИМАЛЬНОЕ (-25%)</option>
+                    </select>
+                </div>
+
+                <div class="input-block">
+                    <label>Статус Существа</label>
+                    <select id="status" onchange="calculate()">
+                        <option value="1" selected>ОБЫЧНЫЙ (x1)</option>
+                        <option value="0.75">НИЗШИЙ ВИД (-25%)</option>
+                        <option value="1.5">ВЫСШИЙ ВИД (+50%)</option>
+                        <option value="2">БОСС (+100%)</option>
+                        <option value="2.5">БОСС ЭТАЖА (+150%)</option>
+                        <option value="3.5">БЕДСТВИЕ (+250%)</option>
+                    </select>
+                </div>
+
+                <div class="input-block">
+                    <label>Эфирный фрагмент</label>
+                    <select id="ether" onchange="calculate()">
+                        <option value="0" selected>ОТСУТСТВУЕТ</option>
+                        <option value="0.5">ОСНОВНАЯ ЭФИРКА (+50%)</option>
+                        <option value="0.25">ВТОРОСТЕПЕННАЯ (+25%)</option>
+                    </select>
+                </div>
+
+                <div class="toggle-group">
+                    <label class="toggle-item">
+                        <input type="checkbox" id="genome" onchange="calculate()">
+                        <span class="custom-check"></span> СОВПАДЕНИЕ ГЕНОМА (+25%)
+                    </label>
+                    <label class="toggle-item">
+                        <input type="checkbox" id="no-source" onchange="calculate()">
+                        <span class="custom-check"></span> ОТСУТСТВИЕ ИСТОЧНИКА (МАНА x2)
+                    </label>
+                </div>
+            </section>
+
+            <section class="calc-display">
+                <div class="display-screen">
+                    <div class="scan-line"></div>
+                    <div class="display-content">
+                        <div class="stat-main">
+                            <label>ИТОГОВЫЙ ИНДЕКС МОЩИ</label>
+                            <div id="res-im" class="glitch-value">5</div>
                         </div>
-                        <div class="mob-drop">
-                            <b>ЦЕННЫЙ ЛУТ:</b> Детали терминала, Искаженный чип.
+                        <div class="stat-sub">
+                            <div class="sub-item">
+                                <label>КРУГ МАГИИ</label>
+                                <span id="res-circle">I</span>
+                            </div>
+                            <div class="sub-item">
+                                <label>ЗАТРАТЫ МАНЫ</label>
+                                <span id="res-mana" class="mana-val">5</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mob-card threat-disaster">
-                    <div class="mob-side-info">
-                        <span class="threat-label">УГРОЗА: БЕДСТВИЕ</span>
-                        <span class="mob-id">#DS-01</span>
-                    </div>
-                    <div class="mob-main-info">
-                        <h3>ПОЖИРАТЕЛЬ СВЕТА</h3>
-                        <p class="mob-desc">Существо из чистой антиматерии. Появление сопровождается полным отказом систем осознанности.</p>
-                        <div class="mob-drop warning">
-                            <b>ПРОТОКОЛ:</b> НЕМЕДЛЕННАЯ ЭВАКУАЦИЯ.
-                        </div>
-                    </div>
+                <div class="warning-box">
+                    ВНИМАНИЕ: СВЕРХВЫСОКИЙ ИМ ВЕДЕТ К ПОТЕРЕ ОСОЗНАННОСТИ
                 </div>
+            </section>
+        </div>
+    </div>
 
-            </div>
-        </section>
-    </main>
-
-    <script>
-        function searchMob() {
-            let input = document.getElementById('mobSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('mob-card');
-            for (let card of cards) {
-                let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? "flex" : "none";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
