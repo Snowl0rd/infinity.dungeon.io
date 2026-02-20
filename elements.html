@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TERMINAL: ELEMENTS_ARCHIVE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>ВЕЧНЫЙ ДАНЖ: ОБСЕРВАТОРИЯ</h1>
+        <p>Архив данных: Терминалы модификации (30 записей)</p>
+    </header>
+
+    <main class="main-container single-column">
+        <nav class="nav-tabs">
+            <a href="index.html" class="nav-item">ЛОГИ (БАЗА)</a>
+            <a href="calc.html" class="nav-item">ТЕРМИНАЛ ИМ</a>
+            <a href="elements.html" class="nav-item active">ЭЛЕМЕНТЫ</a>
+            <a href="#" class="nav-item">БЕСТИАРИЙ</a>
+        </nav>
+
+        <section class="content">
+            <div class="protocol-header">РЕЕСТР ДОСТУПНЫХ ТЕРМИНАЛОВ</div>
+
+            <div class="search-box">
+                <input type="text" id="termSearch" placeholder="ПОИСК ПО НАЗВАНИЮ ИЛИ ТИПУ..." onkeyup="searchTerminal()">
+            </div>
+
+            <div class="terminal-grid" id="terminalGrid">
+                
+                <div class="term-card common" data-type="биологический">
+                    <div class="term-id">№0013</div>
+                    <h3>БИОЛОГИЧЕСКИЙ</h3>
+                    <p>Внедрение через культивацию био-свойств организмов.</p>
+                    <div class="term-details">
+                        <b>Улучшенное:</b> Некроморфы, Грибы, Животные.<br>
+                        <b>Минимальное:</b> Энергеты, Демоны.
+                    </div>
+                </div>
+
+                <div class="term-card common" data-type="химический">
+                    <div class="term-id">№0001</div>
+                    <h3>ХИМИЧЕСКИЙ</h3>
+                    <p>Стимуляция организма через алхимические составы.</p>
+                    <div class="term-details">
+                        <b>Идеальное:</b> Химиноиды.
+                    </div>
+                </div>
+
+                <div class="term-card rare" data-type="симбиотрофический">
+                    <div class="term-id">№0002</div>
+                    <h3>СИМБИОТРОФИЧЕСКИЙ</h3>
+                    <p class="warning">ОПАСНО: Смертельный уровень боли при установке.</p>
+                    <div class="term-details">
+                        <b>Идеальное:</b> Грибы.
+                    </div>
+                </div>
+
+                <div class="term-card unique" data-type="сингулярный">
+                    <div class="term-id">№11</div>
+                    <h3>СИНГУЛЯРНЫЙ</h3>
+                    <p>Легендарный терминал 50-го этажа. Шанс обнаружения: 0,0001%.</p>
+                    <div class="term-details">
+                        <b>Эффект:</b> Удваивает итоговый ИМ и бонусы эфирок. Со всеми идеален.
+                    </div>
+                </div>
+
+                </div>
+        </section>
+    </main>
+
+    <script>
+        // Функция поиска для удобства
+        function searchTerminal() {
+            let input = document.getElementById('termSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('term-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? "block" : "none";
+            }
+        }
+    </script>
+</body>
+</html>

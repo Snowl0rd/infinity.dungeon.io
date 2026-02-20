@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TERMINAL: IM_CALCULATOR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="calc-page">
+
+    <div class="terminal-frame">
+        <header class="calc-top-bar">
+            <div class="status-light"></div>
+            <span class="terminal-title">MODIFICATION TERMINAL v.1.0.4</span>
+            <a href="index.html" class="back-link">ВЕРНУТЬСЯ В ОБСЕРВАТОРИЮ [ESC]</a>
+        </header>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" class="exit-btn">РАЗОРВАТЬ СОЕДИНЕНИЕ</a>
+        </div>
+
+        <div class="calc-grid">
+            <section class="calc-inputs">
+                <div class="input-block">
+                    <label>Этаж Данжа (Базовый ИМ)</label>
+                    <div class="number-input-wrapper">
+                        <input type="number" id="floor" value="1" oninput="calculate()">
+                        <span class="unit">FLR</span>
+                    </div>
+                </div>
+
+                <div class="input-block">
+                    <label>Сопряжение Терминала</label>
+                    <select id="terminal" onchange="calculate()">
+                        <option value="3">ИДЕАЛЬНОЕ (x3)</option>
+                        <option value="2">УЛУЧШЕННОЕ (x2)</option>
+                        <option value="1" selected>УДОВЛЕТВОРИТЕЛЬНОЕ (x1)</option>
+                        <option value="0.75">МИНИМАЛЬНОЕ (-25%)</option>
+                    </select>
+                </div>
+
+                <div class="input-block">
+                    <label>Статус Существа</label>
+                    <select id="status" onchange="calculate()">
+                        <option value="1" selected>ОБЫЧНЫЙ (x1)</option>
+                        <option value="0.75">НИЗШИЙ ВИД (-25%)</option>
+                        <option value="1.5">ВЫСШИЙ ВИД (+50%)</option>
+                        <option value="2">БОСС (+100%)</option>
+                        <option value="2.5">БОСС ЭТАЖА (+150%)</option>
+                        <option value="3.5">БЕДСТВИЕ (+250%)</option>
+                    </select>
+                </div>
+
+                <div class="input-block">
+                    <label>Эфирный фрагмент</label>
+                    <select id="ether" onchange="calculate()">
+                        <option value="0" selected>ОТСУТСТВУЕТ</option>
+                        <option value="0.5">ОСНОВНАЯ ЭФИРКА (+50%)</option>
+                        <option value="0.25">ВТОРОСТЕПЕННАЯ (+25%)</option>
+                    </select>
+                </div>
+
+                <div class="toggle-group">
+                    <label class="toggle-item">
+                        <input type="checkbox" id="genome" onchange="calculate()">
+                        <span class="custom-check"></span> СОВПАДЕНИЕ ГЕНОМА (+25%)
+                    </label>
+                    <label class="toggle-item">
+                        <input type="checkbox" id="no-source" onchange="calculate()">
+                        <span class="custom-check"></span> ОТСУТСТВИЕ ИСТОЧНИКА (МАНА x2)
+                    </label>
+                </div>
+            </section>
+
+            <section class="calc-display">
+                <div class="display-screen">
+                    <div class="scan-line"></div>
+                    <div class="display-content">
+                        <div class="stat-main">
+                            <label>ИТОГОВЫЙ ИНДЕКС МОЩИ</label>
+                            <div id="res-im" class="glitch-value">5</div>
+                        </div>
+                        <div class="stat-sub">
+                            <div class="sub-item">
+                                <label>КРУГ МАГИИ</label>
+                                <span id="res-circle">I</span>
+                            </div>
+                            <div class="sub-item">
+                                <label>ЗАТРАТЫ МАНЫ</label>
+                                <span id="res-mana" class="mana-val">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    ВНИМАНИЕ: СВЕРХВЫСОКИЙ ИМ ВЕДЕТ К ПОТЕРЕ ОСОЗНАННОСТИ
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

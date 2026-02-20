@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TERMINAL: BESTIARY_DATABASE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>ВЕЧНЫЙ ДАНЖ: ОБСЕРВАТОРИЯ</h1>
+        <p>Архив биологических и энергетических угроз</p>
+    </header>
+
+    <main class="main-container single-column">
+        <nav class="nav-tabs">
+            <a href="index.html" class="nav-item">ЛОГИ (БАЗА)</a>
+            <a href="calc.html" class="nav-item">ТЕРМИНАЛ ИМ</a>
+            <a href="elements.html" class="nav-item">ЭЛЕМЕНТЫ</a>
+            <a href="classes.html" class="nav-item">КЛАССЫ</a>
+            <a href="bestiary.html" class="nav-item active">БЕСТИАРИЙ</a>
+        </nav>
+
+        <section class="content">
+            <div class="protocol-header">АНАЛИЗ ВНЕШНИХ УГРОЗ</div>
+
+            <div class="search-box">
+                <input type="text" id="mobSearch" placeholder="ПОИСК ПО ТИПУ СУЩЕСТВА..." onkeyup="searchMob()">
+            </div>
+
+            <div class="bestiary-list" id="mobGrid">
+                
+                <div class="mob-card threat-mid">
+                    <div class="mob-side-info">
+                        <span class="threat-label">УГРОЗА: СРЕДНЯЯ</span>
+                        <span class="mob-id">#NM-04</span>
+                    </div>
+                    <div class="mob-main-info">
+                        <h3>НЕКРОМОРФ</h3>
+                        <p class="mob-desc">Переродившаяся плоть, управляемая эфирным паразитом. Обладает высокой регенерацией.</p>
+                        <div class="mob-stats">
+                            <span><b>Тип:</b> Биологический</span>
+                            <span><b>Среда:</b> Нижние этажи</span>
+                        </div>
+                        <div class="mob-drop">
+                            <b>ЦЕННЫЙ ЛУТ:</b> Костяной фрагмент, Эфирная эссенция.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mob-card threat-high">
+                    <div class="mob-side-info">
+                        <span class="threat-label">УГРОЗА: ВЫСОКАЯ</span>
+                        <span class="mob-id">#TC-09</span>
+                    </div>
+                    <div class="mob-main-info">
+                        <h3>ТЕХНОЦИТ (ЗАРАЖЕННЫЙ)</h3>
+                        <p class="mob-desc">Слияние живых тканей и механизмов терминала. Агрессивен к любым источникам маны.</p>
+                        <div class="mob-stats">
+                            <span><b>Тип:</b> Техногенный</span>
+                            <span><b>Среда:</b> Технические сектора</span>
+                        </div>
+                        <div class="mob-drop">
+                            <b>ЦЕННЫЙ ЛУТ:</b> Детали терминала, Искаженный чип.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mob-card threat-disaster">
+                    <div class="mob-side-info">
+                        <span class="threat-label">УГРОЗА: БЕДСТВИЕ</span>
+                        <span class="mob-id">#DS-01</span>
+                    </div>
+                    <div class="mob-main-info">
+                        <h3>ПОЖИРАТЕЛЬ СВЕТА</h3>
+                        <p class="mob-desc">Существо из чистой антиматерии. Появление сопровождается полным отказом систем осознанности.</p>
+                        <div class="mob-drop warning">
+                            <b>ПРОТОКОЛ:</b> НЕМЕДЛЕННАЯ ЭВАКУАЦИЯ.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function searchMob() {
+            let input = document.getElementById('mobSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('mob-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? "flex" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
