@@ -531,3 +531,41 @@ select {
 @keyframes blink {
     50% { opacity: 0.3; }
 }
+
+
+
+/* --- АДАПТАЦИЯ ПОД ТЕЛЕФОНЫ (Этап 1) --- */
+
+@media (max-width: 768px) {
+    /* 1. Навигация: делаем её прокручиваемой, чтобы кнопки не налезали друг на друга */
+    .nav-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 15px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch; /* плавная прокрутка на iOS */
+    }
+
+    .nav-item {
+        flex: 0 0 auto; /* не даем кнопкам сжиматься */
+    }
+
+    /* 2. Контейнер: убираем лишние отступы, чтобы на узком экране было больше места */
+    .main-container {
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        border-left-width: 2px; /* делаем полоску чуть тоньше */
+    }
+
+    /* 3. Сетки: заставляем карточки вставать в одну колонку */
+    .info-grid, .terminal-grid, .class-grid, .calc-grid {
+        grid-template-columns: 1fr !important; 
+    }
+
+    /* 4. Шапка: уменьшаем текст, чтобы не занимал пол-экрана */
+    .header h1 {
+        font-size: 1.6em;
+    }
+}
