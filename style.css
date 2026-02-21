@@ -642,4 +642,81 @@ select {
         writing-mode: horizontal-tb;
         transform: none;
     }
+
+}
+
+/* --- КОРРЕКТИРОВКИ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+@media (max-width: 768px) {
+    
+    /* Уменьшаем заголовки, чтобы не вылезали за края */
+    .header h1 {
+        font-size: 1.8em;
+        padding: 0 10px;
+    }
+
+    /* Навигация: делаем свайп вправо-влево, чтобы кнопки не ломались */
+    .nav-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 15px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-item {
+        flex: 0 0 auto;
+        font-size: 11px;
+    }
+
+    /* Основной контейнер: убираем лишние отступы */
+    .main-container {
+        width: 100%;
+        margin: 5px 0;
+        padding: 15px;
+        box-sizing: border-box;
+        border-left-width: 2px;
+    }
+
+    /* Все сетки (Элементы, Классы, Калькулятор) переводим в одну колонку */
+    .info-grid, .terminal-grid, .class-grid, .calc-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* Калькулятор: подгоняем экран под ширину телефона */
+    .terminal-frame {
+        width: 100%;
+        border-width: 1px;
+    }
+
+    .glitch-value {
+        font-size: 45px; /* Уменьшаем гигантские цифры ИМ */
+    }
+
+    .display-screen {
+        height: 180px;
+    }
+
+    /* Бестиарий: превращаем горизонтальные карточки в вертикальные */
+    .mob-card {
+        flex-direction: column;
+    }
+
+    .mob-side-info {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        writing-mode: horizontal-tb; /* Текст угрозы теперь горизонтальный */
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding: 5px 15px;
+        justify-content: space-between;
+    }
+
+    .threat-label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 12px;
+    }
 }
