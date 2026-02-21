@@ -1,48 +1,64 @@
 function calculate() {
     const floorInput = document.getElementById('floor');
-    if (!floorInput) return; // Если мы не на странице калькулятора — ничего не делаем
+    if (!floorInput) return; 
 
     const floor = parseFloat(floorInput.value) || 0;
-    // ... далее весь твой код расчета ...
-    // Получаем значения из полей ввода
-    // Если поле пустое, берем 0 (чтобы не было ошибок в расчетах)
     const termMod = parseFloat(document.getElementById('terminal').value);
     const statusMod = parseFloat(document.getElementById('status').value);
     const etherMod = parseFloat(document.getElementById('ether').value);
     const hasGenome = document.getElementById('genome').checked;
     const noSource = document.getElementById('no-source').checked;
 
-    // 1. Базовый ИМ (Этаж * 5)
-    let baseIM = floor * 5;
+    // 1. БАЗОВЫЙ ИМ (фрагмент)
+    let baseIM = floor * 5; 
     
-    // Обновляем текстовую подсказку "Базовый ИМ" под полем ввода этажа
-    const baseValDisplay = document.getElementById('base-val');
-    if (baseValDisplay) baseValDisplay.innerText = baseIM;
+    // Переменные для финальных расчетов
+    let resultIM = baseIM;
+    let mana = baseIM;
 
-    // 2. Рассчитываем итоговый ИМ
-    // Учитываем терминал и статус существа
-    let resultIM = baseIM * termMod * statusMod;
+    // 2. ЛОГИКА ТЕРМИНАЛОВ (СОПРЯЖЕНИЕ)
     
-    // Прибавляем бонусы от Эфирки
-    if (etherMod > 0) {
-        resultIM += (resultIM * etherMod);
+    // ИДЕАЛЬНОЕ (в value селектора должно быть 3.0)
+    if (termMod === 3.0) {
+        resultIM = baseIM * 3;
+        mana = baseIM; // Не влияет на ману
+        // Нагрузка на геном -25% (визуально можно добавить в описание)
+    } 
+    
+    // УЛУЧШЕННОЕ (в value селектора должно быть 2.0)
+    else if (termMod === 2.0) {
+        resultIM = baseIM * 2;
+        // Мана: База + 50% от прибавки ИМ. 
+        // Прибавка = baseIM, значит 50% от неё — это baseIM * 0.5
+        mana = baseIM + (baseIM * 0.5); 
     }
     
-    // Прибавляем бонус Генома (+25% от текущего значения)
-    if (hasGenome) {
-        resultIM += (resultIM * 0.25);
+    // МИНИМАЛЬНОЕ (в value селектора должно быть 0.75)
+    else if (termMod === 0.75) {
+        resultIM = baseIM * 0.75; // Снижение ИМ на 25%
+        mana = baseIM + (baseIM * 0.5); // Стоит как ИМ + 50% от изначального
+        // Нагрузка на геном +50%
+    }
+    
+    // УДОВЛЕТВОРИТЕЛЬНОЕ (в value селектора должно быть 1.0)
+    else {
+        resultIM = baseIM;
+        mana = baseIM;
     }
 
-    // 3. Рассчитываем стоимость Маны
-    // Базовая стоимость равна ИМ
-    let mana = resultIM;
+    // 3. ПРИМЕНЕНИЕ ОСТАЛЬНЫХ МОДИФИКАТОРОВ (Статус, Эфирки, Геном)
+    // Эти множители обычно применяются к итоговому ИМ
+    resultIM = resultIM * statusMod;
     
-    // Если нет источника, стоимость удваивается
+    if (etherMod > 0) resultIM += (resultIM * etherMod);
+    if (hasGenome) resultIM += (resultIM * 0.25);
+
+    // 4. ШТРАФ ЗА ИСТОЧНИК (удваивает финальную ману)
     if (noSource) {
         mana *= 2;
     }
 
-    // 4. Определяем Круг Магии на основе ИМ (по твоим файлам)
+    // 5. ОПРЕДЕЛЕНИЕ КРУГА
     let circle = "I";
     if (resultIM > 20) circle = "II";
     if (resultIM > 50) circle = "III";
@@ -50,20 +66,11 @@ function calculate() {
     if (resultIM > 500) circle = "V";
     if (resultIM > 1500) circle = "VI";
 
-    // 5. Вывод результатов на экран терминала
-    // Math.round — чтобы не было бесконечных знаков после запятой
+    // 6. ВЫВОД
     document.getElementById('res-im').innerText = Math.round(resultIM);
     document.getElementById('res-circle').innerText = circle;
     document.getElementById('res-mana').innerText = Math.round(mana);
 
-    // Добавим немного динамики: если ИМ слишком высокий, подсветим его красным
-    const imDisplay = document.getElementById('res-im');
-    if (resultIM > 100) {
-        imDisplay.style.color = "#ff4d4d"; // Красный для опасных значений
-    } else {
-        imDisplay.style.color = "var(--accent-cyan)";
-    }
+    const baseValDisplay = document.getElementById('base-val');
+    if (baseValDisplay) baseValDisplay.innerText = baseIM;
 }
-
-// Запускаем расчет один раз при загрузке страницы, чтобы не было пустых цифр
-window.onload = calculate;
