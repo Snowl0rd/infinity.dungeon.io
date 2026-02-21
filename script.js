@@ -1,7 +1,11 @@
 function calculate() {
+    const floorInput = document.getElementById('floor');
+    if (!floorInput) return; // Если мы не на странице калькулятора — ничего не делаем
+
+    const floor = parseFloat(floorInput.value) || 0;
+    // ... далее весь твой код расчета ...
     // Получаем значения из полей ввода
     // Если поле пустое, берем 0 (чтобы не было ошибок в расчетах)
-    const floor = parseFloat(document.getElementById('floor').value) || 0;
     const termMod = parseFloat(document.getElementById('terminal').value);
     const statusMod = parseFloat(document.getElementById('status').value);
     const etherMod = parseFloat(document.getElementById('ether').value);

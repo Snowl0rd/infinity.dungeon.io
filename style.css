@@ -569,3 +569,77 @@ select {
         font-size: 1.6em;
     }
 }
+
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
+@media (max-width: 768px) {
+    /* 1. Навигация: делаем её листаемой пальцем влево-вправо */
+    .nav-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+        -webkit-overflow-scrolling: touch; /* плавная прокрутка для iPhone */
+    }
+
+    .nav-item {
+        font-size: 11px; /* чуть меньше шрифт */
+        padding: 8px 12px;
+        flex-shrink: 0; /* кнопки не сжимаются */
+    }
+
+    /* 2. Контейнеры: убираем лишние пустые поля по бокам */
+    .main-container {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+        border-left-width: 2px; /* полоска потоньше */
+        box-sizing: border-box;
+    }
+
+    /* 3. Сетки: всё выстраиваем в одну колонку */
+    .info-grid, .terminal-grid, .class-grid, .calc-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* 4. Специфично для Калькулятора */
+    .terminal-frame {
+        width: 100%;
+        border-width: 1px;
+    }
+
+    .calc-grid {
+        padding: 15px; /* меньше внутренний отступ */
+    }
+
+    .glitch-value {
+        font-size: 40px; /* огромные цифры ИМ уменьшаем для экрана телефона */
+    }
+
+    .display-screen {
+        height: 180px;
+    }
+
+    /* 5. Карточки в Бестиарии: меняем направление с горизонтального на вертикальное */
+    .mob-card {
+        flex-direction: column;
+    }
+    
+    .mob-side-info {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        writing-mode: horizontal-tb; /* текст теперь читается обычно */
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding: 5px 15px;
+        justify-content: space-between;
+    }
+
+    .threat-label {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+}
